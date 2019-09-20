@@ -6,24 +6,19 @@
 
 using namespace std;
 
-string tail(string str, int cut)
-{
-    return str.substr(str.size()-cut);
-}
-
 class Tabel
 {
-    public:
+public:
     
     string group;
     
     class Day
     {
-        public:
+    public:
         
         class Student
         {
-            public:
+        public:
             string person;
             int present;
             Student(string iname, int ipresent)
@@ -60,11 +55,12 @@ class Tabel
                 cerr<<"Файл не найден!"<<endl;
                 return;
             }
-            file>>date;
             string readline;
+            getline(file,readline);
+            date = readline;
             string curStudentPerson;
             int curStudentPresent;
-
+            
             while (getline(file,readline,','))
             {
                 curStudentPerson=readline;
@@ -90,7 +86,7 @@ class Tabel
         curDay.load(filename);
         Array.push_back(curDay);
     }
-
+    
     void unload()
     {
         vector<Day::Student> studArray;
@@ -119,13 +115,14 @@ class Tabel
                 }
                 else
                 {
-                    Day::Student newStud(studName,1);
+                    Day::Student newStud(studName,0);
+                    newStud.present += curStud.present;
                     studArray.push_back(newStud);
                 }
             }
         }
         
-        cout<<group;
+        cout<<group<<endl;
         
         for (int i = 0; i < studArray.size(); i++)
         {
